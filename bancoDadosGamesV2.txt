@@ -1,0 +1,101 @@
+CREATE TABLE USUARIO(
+	cod serial not null,
+	email varchar(40) not null,
+	nome varchar(40) not null,
+	senha varchar(20) not null,
+	dataNasc varchar(15),
+	ocupacao varchar(60),
+	descricao varchar(200),
+	dataCriacao varchar(15) not null,
+	horaCriacao varchar(15) not null,
+	dataModific varchar(15) not null,
+	horaModific varchar(15) not null,	
+	PRIMARY KEY(cod),
+	UNIQUE (EMAIL)		
+);
+
+CREATE TABLE TIPO_PLATAFORMA(
+	cod serial not null,
+	nome varchar(30) not null,
+	PRIMARY KEY(cod),
+	UNIQUE (NOME)
+);
+
+CREATE TABLE TIPO_JOGO(
+	cod serial not null,
+	nome varchar(30) not null,
+	PRIMARY KEY(cod),
+	UNIQUE (NOME)	
+);
+
+CREATE TABLE POSTAGEM(
+	codPost serial not null,
+	codUsuario int not null,
+	titulo varchar(30) not null,
+	nota float not null,
+	descricao varchar(700) not null,
+	dataC varchar(15) not null,
+	horarioC varchar(15) not null, 
+	dataM varchar(15) not null,
+	horarioM varchar(15) not null,	
+	PRIMARY KEY(codPost),
+	FOREIGN KEY(codUsuario) REFERENCES USUARIO(cod)
+);
+
+CREATE TABLE POSTAGEM_PLATAFORMA(
+	codPost int not null,
+	codTipoPlataforma int not null,
+	PRIMARY KEY(codPost, codTipoPlataforma),
+	FOREIGN KEY(codTipoPlataforma) REFERENCES TIPO_PLATAFORMA(cod),
+	FOREIGN KEY(codPost) REFERENCES POSTAGEM(codPost)
+);
+
+CREATE TABLE POSTAGEM_JOGO(
+	codPost int not null,
+	codTipoJogo int not null,
+	PRIMARY KEY(codPost, codTipoJogo),
+	FOREIGN KEY(codTipoJogo) REFERENCES TIPO_JOGO(cod),
+	FOREIGN KEY(codPost) REFERENCES POSTAGEM(codPost)
+);
+
+CREATE TABLE DUVIDA(
+	codDuvida serial not null,
+	email varchar(30) not null,
+	duvida varchar(500) not null,
+	resposta varchar(500),
+	PRIMARY KEY(codDuvida)	
+);
+
+CREATE TABLE ACESSOS(
+	cod int,
+	acessosTotal int,
+	PRIMARY KEY(cod)
+);
+
+CREATE TABLE ACESSOS_POST(
+	codPost int,
+	acessosTotal int,
+	PRIMARY KEY(codPost),
+	FOREIGN KEY(codPost) REFERENCES POSTAGEM(codPost)
+);
+
+CREATE TABLE SEGUIR(
+	codU int,
+	codS int,
+	PRIMARY KEY(codU, codS),
+	FOREIGN KEY(codU) REFERENCES USUARIO(cod),
+	FOREIGN KEY(codS) REFERENCES USUARIO(cod)
+);
+
+INSERT INTO USUARIO VALUES(DEFAULT, 'ALISSON@HOTMAIL.COM', 'ALISSONTS', '123', '09/06/1995', 'Cursando Engenharia Elétrica', 'Administrador', '18/06/2016', '21:06:05', '18/06/2016', '21:06:05');
+INSERT INTO USUARIO VALUES(DEFAULT, 'ALISSON2@GMAIL.COM', 'ALISSONTS', '123', '09/06/1995', 'Cursando Engenharia Mecânica', 'Administrador', '18/06/2016', '21:06:05', '18/06/2016', '21:06:05');
+INSERT INTO TIPO_JOGO VALUES(DEFAULT, 'FUTEBOL');
+INSERT INTO TIPO_JOGO VALUES(DEFAULT, 'CORRIDA');
+INSERT INTO TIPO_JOGO VALUES(DEFAULT, 'LUTA');
+INSERT INTO TIPO_JOGO VALUES(DEFAULT, 'RPG');
+INSERT INTO TIPO_PLATAFORMA VALUES(DEFAULT, 'COMPUTADOR');
+INSERT INTO TIPO_PLATAFORMA VALUES(DEFAULT, 'PLAYSTATION 4');
+INSERT INTO TIPO_PLATAFORMA VALUES(DEFAULT, 'XBOX ONE');
+INSERT INTO TIPO_PLATAFORMA VALUES(DEFAULT, 'PLAYSTATION 3');
+INSERT INTO TIPO_PLATAFORMA VALUES(DEFAULT, 'XBOX 360');
+INSERT INTO ACESSOS VALUES(1, 0); 

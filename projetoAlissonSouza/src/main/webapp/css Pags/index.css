@@ -1,0 +1,20 @@
+			#paragrafo{
+				text-indent: 25px;
+				font-size: 20px;
+				font-family: "Times New Roman", Times, serif;
+			}
+			#indexh1{
+				font-size: 35px;
+				font-family: "Times New Roman", Times, serif;
+				text-align: center;
+			}
+			#indexh2{
+				font-size: 25px;
+				font-family: "Times New Roman", Times, serif;
+				text-align: center;
+			}
+			#indexh3{
+				font-size: 25px;
+				font-family: "Times New Roman", Times, serif;
+				font-style: italic;
+			}
